@@ -1,5 +1,6 @@
 package com.nrvg;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.Vector;
@@ -24,6 +25,9 @@ public class MainFrame extends javax.swing.JFrame {
         txtNumOfFunctions = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGrayMatrix = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        comboxFunNum = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
         columnNames = new String [] {
                 "X1", "F1"
         };
@@ -130,40 +134,73 @@ public class MainFrame extends javax.swing.JFrame {
         tblGrayMatrix.setTableHeader(null);
         jScrollPane2.setViewportView(tblGrayMatrix);
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText(" Матрица грея");
+
+        comboxFunNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----Выберите нужную функцию----" }));
+        comboxFunNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxFunNumActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                        .addComponent(jSeparator1)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(comboxFunNum, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(477, Short.MAX_VALUE))
+                                .addGap(477, 477, 477))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboxFunNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         pack();
     }
+
     private void btnInitTableActionPerformed(java.awt.event.ActionEvent evt) {
         generateTable(Integer.parseInt(txtNumOfX.getText()), Integer.parseInt(txtNumOfFunctions.getText()));
-        generateGrayMatrix(Integer.parseInt(txtNumOfX.getText()));
     }
 
-    private void generateGrayMatrix(int numOfX) {
-        int column, row;
-        row = numOfX / 2;
-        column = numOfX - row;
-        System.out.println("column: " + column * 2 + ", row: " + row * 2);
+    private void comboxFunNumActionPerformed(java.awt.event.ActionEvent evt) {
+        generateGrayMatrix(Integer.parseInt(txtNumOfX.getText()), /*Integer.parseInt(txtNumOfFunctions.getText()), */comboxFunNum.getSelectedIndex());
+    }
+
+    private void generateGrayMatrix(int numOfX, /*int numOfFunctions,*/ int selectedItemId) {
+        TableModel tableModel = jTable1.getModel();
+
+        if(selectedItemId != 0) {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                if (Integer.parseInt(String.valueOf(tableModel.getValueAt(i, (numOfX + selectedItemId - 1)))) == 1) {
+                    System.out.println("row: " + i);
+                }
+            }
+        }
+
+
+        int column, row, var;
+        var = numOfX / 2;
+        row = (int) Math.pow(2, var);
+        column = (int) Math.pow(2, numOfX - var);
 
         Boolean canEdit[] = new Boolean[column];
         Vector Col = new Vector(column);
@@ -174,10 +211,10 @@ public class MainFrame extends javax.swing.JFrame {
         Vector data = new Vector();
         Vector Row = new Vector();
 
-        for (int i = 0; i < ((int) Math.pow(2, row)); i++) {
+        for (int i = 0; i < ((int) Math.pow(2, row / 2)); i++) {
             Row = new Vector(column);
             for (int j = column - 1; j >= 0; j--) {
-                Row.add((i/(int) Math.pow(2, j))%2);
+                Row.add("•");
             }
 
             data.add(Row);
@@ -188,15 +225,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         tblGrayMatrix.setModel(new DefaultTableModel(data, Col){
-
-
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
 
         });
         jScrollPane2.setViewportView(tblGrayMatrix);
-
     }
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,7 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void changeFunValue() {
         TableModel model = jTable1.getModel();
         String value = model.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString();
-        System.out.println("value: " + value + ", column: " + (jTable1.getSelectedColumn() + 1) + ", row: " + (jTable1.getSelectedRow() + 1));
+        //System.out.println("value: " + value + ", column: " + (jTable1.getSelectedColumn() + 1) + ", row: " + (jTable1.getSelectedRow() + 1));
         switch (value) {
             case "0" :
                 model.setValueAt("1", jTable1.getSelectedRow(), jTable1.getSelectedColumn());
@@ -218,9 +252,6 @@ public class MainFrame extends javax.swing.JFrame {
                 model.setValueAt("0", jTable1.getSelectedRow(), jTable1.getSelectedColumn());
                 break;
         }
-        /*model.isCellEditable(3, 4);
-        jTable1.setModel(model);
-        System.out.println(jTable1.isCellEditable(jTable1.getSelectedRow(), jTable1.getSelectedColumn()));*/
     }
 
     private void generateTable(int numOfX, int numOfFunctions) {
@@ -254,14 +285,20 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         jTable1.setModel(new DefaultTableModel(data, Col){
-
-
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
 
         });
         jScrollPane1.setViewportView(jTable1);
+
+        Vector comboBoxItems = new Vector(numOfFunctions);
+        comboBoxItems.add("----Выберите нужную функцию----");
+        for (int i = 0; i < numOfFunctions; i++) {
+            comboBoxItems.add("F" + (i + 1));
+        }
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(comboBoxItems);
+        comboxFunNum.setModel(model);
     }
 
     public static void main(String args[]) {
@@ -289,14 +326,18 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private javax.swing.JButton btnInitTable;
+    private javax.swing.JComboBox<String> comboxFunNum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblGrayMatrix;
     private javax.swing.JTextField txtNumOfFunctions;
     private javax.swing.JTextField txtNumOfX;
     private String[] columnNames;
+
 }
