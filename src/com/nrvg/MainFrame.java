@@ -24,23 +24,21 @@ public class MainFrame extends javax.swing.JFrame {
         txtNumOfFunctions = new javax.swing.JTextField();
         txtSupFunct = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblGrayMatrix = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        comboxFunNum = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblSuperpos = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtDNFSuper = new javax.swing.JTextField();
         btnFindSuperpos = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtDNFSuper = new javax.swing.JTextArea();
         columnNames = new String [] {
                 "X1", "F1"
         };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Superposition");
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -102,22 +100,19 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(txtNumOfX)
-                                                        .addComponent(txtNumOfFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                                        .addComponent(txtSupFunct)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(btnInitTable, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnInitTable, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtNumOfX)
+                                                .addComponent(txtNumOfFunctions, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                .addComponent(txtSupFunct)))
                                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,40 +133,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnInitTable))
         );
-
-        jScrollPane2.setBorder(null);
-
-        tblGrayMatrix.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null},
-                        {null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2"
-                }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                    false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblGrayMatrix.setName(""); // NOI18N
-        tblGrayMatrix.setTableHeader(null);
-        jScrollPane2.setViewportView(tblGrayMatrix);
-
-        jLabel3.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 13)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText(" Матрица грея");
-
-        comboxFunNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----Выберите нужную функцию----" }));
-        comboxFunNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboxFunNumActionPerformed(evt);
-            }
-        });
 
         jScrollPane3.setBorder(null);
 
@@ -209,30 +170,43 @@ public class MainFrame extends javax.swing.JFrame {
         txtDNFSuper.setText("F* = ?");
 
         btnFindSuperpos.setText("Найти");
+        btnFindSuperpos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindSuperposActionPerformed(evt);
+            }
+        });
+
+        txtDNFSuper.setColumns(20);
+        txtDNFSuper.setRows(5);
+        txtDNFSuper.setLineWrap(true);
+        txtDNFSuper.setFont(txtDNFSuper.getFont().deriveFont(14f));
+        jScrollPane4.setViewportView(txtDNFSuper);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(comboxFunNum, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(btnFindSuperpos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(9, 9, 9))
+                                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jScrollPane3)
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtDNFSuper, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addComponent(btnFindSuperpos))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane4))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -241,30 +215,21 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboxFunNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(btnFindSuperpos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel4)
-                                        .addComponent(jLabel5))
+                                        .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtDNFSuper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(btnFindSuperpos)
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jScrollPane4)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)))
         );
 
         pack();
@@ -275,8 +240,8 @@ public class MainFrame extends javax.swing.JFrame {
         generateSuperposTable(Integer.parseInt(txtNumOfFunctions.getText()), Integer.parseInt(txtSupFunct.getText()));
     }
 
-    private void comboxFunNumActionPerformed(java.awt.event.ActionEvent evt) {
-        generateGrayMatrix(Integer.parseInt(txtNumOfX.getText()), comboxFunNum.getSelectedIndex());
+    private void btnFindSuperposActionPerformed(java.awt.event.ActionEvent evt) {
+        //generateGrayMatrix(Integer.parseInt(txtNumOfX.getText()));
         toDNF(jTable1, Integer.parseInt(txtNumOfX.getText()));
     }
 
@@ -299,7 +264,7 @@ public class MainFrame extends javax.swing.JFrame {
                         }
                     }
 
-                    string += "⋁";
+                    string += " ⋁ ";
                 } else {
                     for (int k = 0; k <= numOfX - 1; k++) {
                         if (Integer.parseInt(String.valueOf(model.getValueAt(j, k))) == 1)
@@ -309,12 +274,12 @@ public class MainFrame extends javax.swing.JFrame {
                         }
                     }
 
-                    notString += "⋁";
+                    notString += " ⋁ ";
                 }
             }
             if (string.length() > 0) {
-                string = string.substring(0, string.length() - 1);
-                notString = notString.substring(0, notString.length() - 1);
+                string = string.substring(0, string.length() - 3);
+                notString = notString.substring(0, notString.length() - 3);
             }
             F.add(string);
             notF.add(notString);
@@ -331,21 +296,24 @@ public class MainFrame extends javax.swing.JFrame {
         String superposition = "";
         for (int i = 0; i <= rows; i++) {
             for (int j = 0; j <= columns; j++) {
-                if (Integer.parseInt(String.valueOf(model.getValueAt(i, j))) == 1) {
-                    superposition += F.get(j) + "⋀";
-                } else if (Integer.parseInt(String.valueOf(model.getValueAt(i, j))) == 0) {
-                    superposition += notF.get(j) + "⋀";
+                if ((String.valueOf(model.getValueAt(i, j)).equals("-")) == true) {
+                } else {
+                    if (Integer.parseInt(String.valueOf(model.getValueAt(i, j))) == 1) {
+                        superposition += F.get(j) + " ⋀ ";
+                    }
+                    if (Integer.parseInt(String.valueOf(model.getValueAt(i, j))) == 0) {
+                        superposition += notF.get(j) + " ⋀ ";
+                    }
                 }
             }
-            superposition = superposition.substring(0, superposition.length() - 1);
-            superposition += "⋁";
+            superposition = superposition.substring(0, superposition.length() - 3);
+            superposition += " ⋁ ";
         }
-        superposition = superposition.substring(0, superposition.length() - 1);
-        txtDNFSuper.setText("");
-        txtDNFSuper.setText(superposition);
+        superposition = superposition.substring(0, superposition.length() - 3);
+        txtDNFSuper.setText("F* = " + superposition);
     }
 
-    private void generateGrayMatrix(int numOfX, /*int numOfFunctions,*/ int selectedItemId) {
+    private void generateGrayMatrix(int numOfX) {
         int column, row, var;
         var = numOfX / 2;
         row = (int) Math.pow(2, var);
@@ -358,18 +326,6 @@ public class MainFrame extends javax.swing.JFrame {
                 arr[i][j] = 1;
             }
         }*/
-
-        if(selectedItemId != 0) {
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                if (Integer.parseInt(String.valueOf(tableModel.getValueAt(i, (numOfX + selectedItemId - 1)))) == 1) {
-                    for (int j = 0; j < numOfX; j++) {
-                        //System.out.println(Integer.parseInt(String.valueOf(tableModel.getValueAt(i, j))));
-                    }
-
-                    //System.out.println("row: " + i + "\n");
-                }
-            }
-        }
 
         Boolean canEdit[] = new Boolean[column];
         Vector Col = new Vector(column);
@@ -396,14 +352,6 @@ public class MainFrame extends javax.swing.JFrame {
         for (int e = 0; e < column; e++) {
             canEdit[e] = false;
         }
-
-        tblGrayMatrix.setModel(new DefaultTableModel(data, Col){
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-
-        });
-        jScrollPane2.setViewportView(tblGrayMatrix);
     }
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
@@ -440,7 +388,7 @@ public class MainFrame extends javax.swing.JFrame {
         Vector data = new Vector();
         Vector Row = new Vector();
 
-        for (int i = 0; i < numOfSup/*((int) Math.pow(2, numOfX))*/; i++) {
+        for (int i = 0; i < numOfSup; i++) {
             Row = new Vector(numOfFunctions);
             for (int j = numOfFunctions - 1; j >= 0; j--) {
                 Row.add(0);
@@ -498,14 +446,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         });
         jScrollPane1.setViewportView(jTable1);
-
-        Vector comboBoxItems = new Vector(numOfFunctions);
-        comboBoxItems.add("----Выберите нужную функцию----");
-        for (int i = 0; i < numOfFunctions; i++) {
-            comboBoxItems.add("F" + (i + 1));
-        }
-        final DefaultComboBoxModel model = new DefaultComboBoxModel(comboBoxItems);
-        comboxFunNum.setModel(model);
     }
 
     public static void main(String args[]) {
@@ -534,27 +474,25 @@ public class MainFrame extends javax.swing.JFrame {
 
     private javax.swing.JButton btnFindSuperpos;
     private javax.swing.JButton btnInitTable;
-    private javax.swing.JComboBox<String> comboxFunNum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable tblGrayMatrix;
     private javax.swing.JTable tblSuperpos;
-    private javax.swing.JTextField txtDNFSuper;
+    private javax.swing.JTextArea txtDNFSuper;
     private javax.swing.JTextField txtNumOfFunctions;
     private javax.swing.JTextField txtNumOfX;
     private javax.swing.JTextField txtSupFunct;
     private String[] columnNames;
+
 
 
 }
